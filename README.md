@@ -19,6 +19,9 @@ flutter run
 
 ## config for your project
 
+```
 look example
 add permission
+```
 
+## ps ios only support real device(compile WebRTC.framework by self)
