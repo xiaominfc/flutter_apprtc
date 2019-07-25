@@ -15,7 +15,7 @@ flutter run
 
 ## default use my server
 
-(https://apprtc.xiaominfc.com)[https://apprtc.xiaominfc.com]
+[https://apprtc.xiaominfc.com](https://apprtc.xiaominfc.com)
 
 ## config for your project
 
