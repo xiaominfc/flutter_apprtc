@@ -321,6 +321,7 @@ updateListSelectionAtIndexPath:(NSIndexPath *)indexPath
     NSString *value;
     if (textField.text.length != 0) {
         value = textField.text;
+    }else {
         return;
     }
     
