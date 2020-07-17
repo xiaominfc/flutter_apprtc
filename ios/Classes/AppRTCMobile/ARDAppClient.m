@@ -25,7 +25,7 @@
 #import "RTCSessionDescription+JSON.h"
 
 static NSString * const kARDIceServerRequestUrl = @"https://apprtc.xiaominfc.com/params";
-static NSString * const kARDIceServerRequestUrlFormat = @"%/params";
+static NSString * const kARDIceServerRequestUrlFormat = @"%@/params";
 static NSString * const kARDAppClientErrorDomain = @"ARDAppClient";
 static NSInteger const kARDAppClientErrorUnknown = -1;
 static NSInteger const kARDAppClientErrorRoomFull = -2;
@@ -128,6 +128,9 @@ static int const kKbpsMultiplier = 1000;
     _delegate = delegate;
     ARDSettingsModel *model = [[ARDSettingsModel alloc] init];
     NSString *baseUrl = [model currentApprtcServerSettingFromStore];
+      if([baseUrl length] == 0) {
+          baseUrl = @"https://apprtc.xiaominfc.com";
+      }
     NSURL *turnRequestURL = [NSURL URLWithString:[NSString stringWithFormat:kARDIceServerRequestUrlFormat,baseUrl]];
     _turnClient = [[ARDTURNClient alloc] initWithURL:turnRequestURL];
     [self configure];
@@ -492,7 +495,9 @@ static int const kKbpsMultiplier = 1000;
                                     didCreateSessionDescription:sdp
                                                           error:error];
                               }];
+        
     }
+    
   });
 }
 
@@ -553,10 +558,17 @@ static int const kKbpsMultiplier = 1000;
     [_peerConnection offerForConstraints:[self defaultOfferConstraints]
                        completionHandler:^(RTCSessionDescription *sdp,
                                            NSError *error) {
-      ARDAppClient *strongSelf = weakSelf;
-      [strongSelf peerConnection:strongSelf.peerConnection
+        ARDAppClient *strongSelf = weakSelf;
+        [strongSelf peerConnection:strongSelf.peerConnection
           didCreateSessionDescription:sdp
                                 error:error];
+        /*
+        RTCSessionDescription* description = [[RTCSessionDescription alloc] initWithType:RTCSdpTypeOffer sdp:sdp.description];
+        ARDSessionDescriptionMessage* message = [[ARDSessionDescriptionMessage alloc] initWithDescription:description];
+        
+        [self sendSignalingMessage:message];
+         */
+        NSLog(@"Send offser");
     }];
   } else {
     // Check if we've received an offer.

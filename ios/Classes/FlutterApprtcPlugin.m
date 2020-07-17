@@ -32,6 +32,7 @@
     videoCallViewController.modalTransitionStyle =
     UIModalTransitionStyleCrossDissolve;
     UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    videoCallViewController.modalPresentationStyle = UIModalPresentationFullScreen;
     [rootViewController presentViewController:videoCallViewController
                            animated:YES
                          completion:nil];

@@ -41,9 +41,9 @@
                  isLoopback:(BOOL)isLoopback
                    delegate:(id<ARDVideoCallViewControllerDelegate>)delegate {
   if (self = [super init]) {
+      RTCSetMinDebugLogLevel(RTCLoggingSeverityNone);
     ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
     _delegate = delegate;
-
     _client = [[ARDAppClient alloc] initWithDelegate:self];
     [_client connectToRoomWithId:room settings:settingsModel isLoopback:isLoopback];
   }

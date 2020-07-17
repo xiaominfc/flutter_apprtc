@@ -45,6 +45,7 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  //RTCSetMinDebugLogLevel(RTCLoggingSeverity.)
   if ([[[NSProcessInfo processInfo] arguments] containsObject:loopbackLaunchProcessArgument]) {
     [self mainView:nil didInputRoom:@"" isLoopback:YES];
   }

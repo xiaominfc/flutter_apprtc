@@ -112,9 +112,12 @@ static NSInteger const kARDAppEngineClientErrorBadResponse = -1;
           kARDRoomServerMessageFormat,baseHostUrl, roomId, clientId];
   NSURL *url = [NSURL URLWithString:urlString];
   RTCLog(@"C->RS POST: %@", message);
+  NSLog(@"C->RS POST: %@", message);
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
   request.HTTPMethod = @"POST";
   request.HTTPBody = data;
+  [request addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
   [NSURLConnection sendAsyncRequest:request
                   completionHandler:^(NSURLResponse *response,
                                       NSData *data,
